@@ -1,6 +1,6 @@
-module MOR
+# module MOR
 
-include("Geom.jl")
+# include("Geom.jl")
 
 function ADEAN(D50)
    ###########################################################################    
@@ -10,6 +10,7 @@ function ADEAN(D50)
     
     return A
 end
+export ADEAN
 
 function ALST(Hb,Tb,Dirb,hb,ANGbati,K)
 
@@ -85,6 +86,7 @@ function ALST(Hb,Tb,Dirb,hb,ANGbati,K)
 
     return q, q0
 end
+export ALST
 
 function BruunRule(hc,D50,Hberm,slr)
     #    ###########################################################################    
@@ -104,6 +106,7 @@ function BruunRule(hc,D50,Hberm,slr)
     
     return r
 end
+export BruunRule
 
 function depthOfClosure(Hs12,Ts12)
     #    ###########################################################################    
@@ -120,6 +123,7 @@ function depthOfClosure(Hs12,Ts12)
         
     return dc
 end
+export depthOfClosure
 
 function Hs12Calc(Hs,Tp)
 
@@ -148,6 +152,7 @@ function Hs12Calc(Hs,Tp)
     end
     return Hs12,Ts12
 end
+export Hs12Calc
 
 function wast(hb,D50)
 
@@ -162,6 +167,7 @@ function wast(hb,D50)
     
     return wsf
 end
+export wast
 
 function wMOORE(D50)
     ###########################################################################    
@@ -181,6 +187,7 @@ function wMOORE(D50)
     
     return ws
 end
+export wMOORE
 
 function deanSlope(depth, D50)
     ###########################################################################    
@@ -192,5 +199,6 @@ function deanSlope(depth, D50)
 
     return 2 .* A ./ (3 .* (x) .^ (1/3))
 end
+export deanSlope
 
-end # module
+# end # module

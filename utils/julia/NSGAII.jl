@@ -79,6 +79,7 @@ function nsga2(obj_fun, npar, ngen, npop, ub, lb, nobj)
 
     return population, objectives
 end
+export nsga2
 
 ###########################################################
 ###########################################################
@@ -168,6 +169,7 @@ function spea2(obj_fun, npar, ngen, npop, ub, lb, nobj)
 
     return population, objectives, ff_val
 end
+export spea2
 
 ###########################################################
 ###########################################################
