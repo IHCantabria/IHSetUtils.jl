@@ -2,10 +2,6 @@
 
 using Polynomials
 using SciPy
-using BenchmarkTools
-using NLboxsolve
-using NLsolve
-# include("Geom.jl")
 
 function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
     ###########################################################################    

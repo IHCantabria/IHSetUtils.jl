@@ -3,6 +3,10 @@ uuid = "2fbe2ced-d81f-41b4-8f59-9b074fb3e7ff"
 authors = ["defreitasL <lucas12.fp@hotmail.com> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+Polynomials = "f27b6e38-b328-58d1-80ce-0feddd5e7a45"
+SciPy = "ebc72ef8-9537-4fb0-b64e-ac76025fed2d"
+
 [compat]
 julia = "1"
 
