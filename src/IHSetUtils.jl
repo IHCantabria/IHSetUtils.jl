@@ -7,4 +7,4 @@ include("./utils/Geom.jl")
 include("./utils/Waves.jl")
 include("./utils/Morfo.jl")
 
-end # module IHSetUtils
+end

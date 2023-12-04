@@ -1,2 +1,3 @@
-# IH-Set Julia-Utils
-This repo contains the Julia common modules for IH-Set. 
+# IHSetUtils
+
+[![Build Status](https://github.com/defreitasL/IHSetUtils.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/defreitasL/IHSetUtils.jl/actions/workflows/CI.yml?query=branch%3Amain)

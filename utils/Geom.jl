@@ -22,7 +22,6 @@ function abs_angle_cartesian(relD, batiD)
     return waveD
 end
 
-
 function abs_pos(X0,Y0,phi,dn)
     #####################    
     # INPUT:
