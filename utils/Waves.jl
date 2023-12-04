@@ -84,7 +84,6 @@ function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
         
     return H2, DIR2, h2
 end
-export BreakingPropagation
 
 function GroupCelerity(L,T,h)
     ###########################################################################    
@@ -101,7 +100,6 @@ function GroupCelerity(L,T,h)
     
     return Cg
 end
-export GroupCelerity
 
 function hunt(T,d)
 
@@ -129,7 +127,6 @@ function hunt(T,d)
     
     return L
 end
-export hunt
 
 function LinearShoal(H1, T1, DIR1, h1, h2, ANGbati)
     ###########################################################################    
@@ -165,7 +162,6 @@ function LinearShoal(H1, T1, DIR1, h1, h2, ANGbati)
     
     return H2, DIR2
 end
-export LinearShoal
 
 function LinearShoalBreak_Residual(h2l, H1, T1, DIR1, h1, ANGbati, Bcoef)
 
@@ -175,7 +171,6 @@ function LinearShoalBreak_Residual(h2l, H1, T1, DIR1, h1, ANGbati, Bcoef)
 
     return res
 end
-export LinearShoalBreak_Residual
 
 function LinearShoalBreak_ResidualVOL(h2l, H1, T1, DIR1, h1, ANGbati, Bcoef)
 
@@ -185,7 +180,6 @@ function LinearShoalBreak_ResidualVOL(h2l, H1, T1, DIR1, h1, ANGbati, Bcoef)
 
     return H2l, DIR2l
 end
-export LinearShoalBreak_ResidualVOL
 
 function RelDisp(h, T)
     
@@ -205,7 +199,6 @@ function RelDisp(h, T)
     
     return L,C
 end
-export RelDisp
 
 function RU2_Stockdon2006(slope,hs0,tp)
     ###########################################################################    
@@ -230,7 +223,6 @@ function RU2_Stockdon2006(slope,hs0,tp)
     runup2 = 1.1 .* (setup.+infgr) # # eq 19 Stockdon 2006
     return runup2
 end
-export RU2_Stockdon2006
 
 function Snell_Law(L1,L2,alpha1)
     ###########################################################################    
@@ -248,6 +240,5 @@ function Snell_Law(L1,L2,alpha1)
     
     return alpha
 end
-export Snell_Law
 
 # end # module

@@ -21,7 +21,7 @@ function abs_angle_cartesian(relD, batiD)
         
     return waveD
 end
-export abs_angle_cartesian
+
 
 function abs_pos(X0,Y0,phi,dn)
     #####################    
@@ -42,7 +42,6 @@ function abs_pos(X0,Y0,phi,dn)
        
     return XN, YN
 end
-export abs_pos
 
 function cartesianDir2nauticalDir(cDir)
     ###########################################################################    
@@ -55,7 +54,6 @@ function cartesianDir2nauticalDir(cDir)
     
     return nDir
 end
-export cartesianDir2nauticalDir
 
 function interp_lon(x,lon,xq,varargin)
 
@@ -81,7 +79,6 @@ function interp_lon(x,lon,xq,varargin)
     out[out.>180]=out[out.>180]-360
     return out
 end
-export interp_lon
 
 function nauticalDir2cartesianDir(nDir)
 
@@ -100,7 +97,6 @@ function nauticalDir2cartesianDir(nDir)
     
     return cDir
 end
-export nauticalDir2cartesianDir
 
 function nauticalDir2cartesianDirP(nDir)
 
@@ -118,7 +114,6 @@ function nauticalDir2cartesianDirP(nDir)
     
     return cDir
 end
-export nauticalDir2cartesianDirP
 
 function pol2cart(rho,phi)
 
@@ -126,7 +121,6 @@ function pol2cart(rho,phi)
     y = rho .* sin(phi)
     return x,y
 end
-export pol2cart
 
 function rel_angle_cartesian(waveD, batiD)
 
@@ -150,7 +144,6 @@ function rel_angle_cartesian(waveD, batiD)
     
     return relD
 end
-export rel_angle_cartesian
 
 function rel_angle_cartesianP(waveD, batiD)
 
@@ -178,7 +171,6 @@ function rel_angle_cartesianP(waveD, batiD)
     
     return relD
 end
-export rel_angle_cartesianP
 
 function shore_angle(XN,YN,wave_angle)
     #####################    
@@ -228,6 +220,5 @@ function shore_angle(XN,YN,wave_angle)
     return shoreAng
     
 end
-export shore_angle
 
 # end #molude
