@@ -1,7 +1,3 @@
-# module MOR
-
-# include("Geom.jl")
-
 function ADEAN(D50)
    ###########################################################################    
    # Dean parameter; D50 in meters   

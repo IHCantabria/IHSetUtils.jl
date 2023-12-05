@@ -1,5 +1,3 @@
-# module WAV
-
 function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
     ###########################################################################    
     # Propagation of waves using linear theory assuming rectilinear & parallel bathymetry
@@ -214,5 +212,3 @@ function Snell_Law(L1,L2,alpha1)
     
     return alpha
 end
-
-# end # module
