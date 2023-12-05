@@ -1,8 +1,5 @@
 # module WAV
 
-using Polynomials
-using SciPy
-
 function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
     ###########################################################################    
     # Propagation of waves using linear theory assuming rectilinear & parallel bathymetry
@@ -51,27 +48,8 @@ function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
     if sum(propProf)>0
         myFun(x) = LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
         
-        # lb = zeros(size(h2l0[propProf])) .+ 0.1
-        # ub = zeros(size(h2l0[propProf])) .+ 30
-
-        # try
-        #     nlboxsolve(myFun,h2l0[propProf], lb, ub, xtol=1e-1,ftol=1e-1).zero
-        # catch
-        #     println("\n\n", H1, "\n\n")
-        #     println(T1, "\n\n")
-        #     println(DIR1, "\n\n")
-        #     println(h1, "\n\n")
-        #     println(ANGbati, "\n\n")
-        #     println(DIRrel, "\n\n")
-        # end
-        # println("Propagation started")
-        # h2l = nlboxsolve(myFun,h2l0[propProf], lb, ub, xtol=1e-1,ftol=1e-1).zero
         h2l = optimize.newton_krylov(myFun,h2l0[propProf]; method="minres")
-        # h2l = nlsolve(myFun,h2l0[propProf]).zero
-        # println("Propagation finnished")
 
-        # println("h2l = ",h2l)
-        # h2l = optimize.newton_krylov(myFun,h2l0[propProf]; method="minres")
         H2l, DIR2l = LinearShoalBreak_ResidualVOL(h2l, H1[propProf],T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef);                
         H2[propProf] = H2l
         DIR2[propProf] = DIR2l

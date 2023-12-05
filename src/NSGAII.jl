@@ -79,7 +79,6 @@ function nsga2(obj_fun, npar, ngen, npop, ub, lb, nobj)
 
     return population, objectives
 end
-export nsga2
 
 ###########################################################
 ###########################################################
@@ -169,7 +168,6 @@ function spea2(obj_fun, npar, ngen, npop, ub, lb, nobj)
 
     return population, objectives, ff_val
 end
-export spea2
 
 ###########################################################
 ###########################################################
@@ -678,68 +676,68 @@ end
 function ga(fitness::Function, lb::AbstractVector, ub::AbstractVector, n_pop::Int, n_gen::Int,
     pc::Float64=0.8, pm::Float64=0.1, elitism::Bool=true)
 
-n_var = length(lb)
-pop = rand(lb:ub, n_pop, n_var)
-fitness_values = [fitness(pop[i, :]) for i in 1:n_pop]
+    n_var = length(lb)
+    pop = rand(lb:ub, n_pop, n_var)
+    fitness_values = [fitness(pop[i, :]) for i in 1:n_pop]
 
-if elitism
- elite_idx = argmin(fitness_values)
- elite = pop[elite_idx, :]
-end
+    if elitism
+    elite_idx = argmin(fitness_values)
+    elite = pop[elite_idx, :]
+    end
 
-for i in 1:n_gen
- # Seleção
- fitness_prob = fitness_values ./ sum(fitness_values)
- parents_idx = sample(1:n_pop, n_pop, weights=fitness_prob, replace=true)
- parents = pop[parents_idx, :]
- 
- # Cruzamento
- masks = rand(Bool, n_pop, n_var)
- children = zeros(Int, n_pop, n_var)
- for j in 1:2:n_pop-1
-     if rand() < pc
-         for k in 1:n_var
-             if masks[j, k]
-                 children[j, k] = parents[j, k]
-                 children[j+1, k] = parents[j+1, k]
-             else
-                 children[j, k] = parents[j+1, k]
-                 children[j+1, k] = parents[j, k]
-             end
-         end
-     else
-         children[j, :] = parents[j, :]
-         children[j+1, :] = parents[j+1, :]
-     end
- end
- 
- # Mutação
- for j in 1:n_pop
-     for k in 1:n_var
-         if rand() < pm
-             children[j, k] = rand(lb[k]:ub[k])
-         end
-     end
- end
- 
- # Substituição
- pop = vcat(parents, children)
- fitness_values = [fitness(pop[i, :]) for i in 1:size(pop, 1)]
- 
- if elitism
-     best_idx = argmin(fitness_values)
-     if fitness_values[best_idx] < fitness(elite)
-         pop[best_idx, :] = elite
-         fitness_values[best_idx] = fitness(elite)
-         elite = pop[best_idx, :]
-     end
- end
-end
+    for i in 1:n_gen
+    # Seleção
+    fitness_prob = fitness_values ./ sum(fitness_values)
+    parents_idx = sample(1:n_pop, n_pop, weights=fitness_prob, replace=true)
+    parents = pop[parents_idx, :]
+    
+    # Cruzamento
+    masks = rand(Bool, n_pop, n_var)
+    children = zeros(Int, n_pop, n_var)
+    for j in 1:2:n_pop-1
+        if rand() < pc
+            for k in 1:n_var
+                if masks[j, k]
+                    children[j, k] = parents[j, k]
+                    children[j+1, k] = parents[j+1, k]
+                else
+                    children[j, k] = parents[j+1, k]
+                    children[j+1, k] = parents[j, k]
+                end
+            end
+        else
+            children[j, :] = parents[j, :]
+            children[j+1, :] = parents[j+1, :]
+        end
+    end
+    
+    # Mutação
+    for j in 1:n_pop
+        for k in 1:n_var
+            if rand() < pm
+                children[j, k] = rand(lb[k]:ub[k])
+            end
+        end
+    end
+    
+    # Substituição
+    pop = vcat(parents, children)
+    fitness_values = [fitness(pop[i, :]) for i in 1:size(pop, 1)]
+    
+    if elitism
+        best_idx = argmin(fitness_values)
+        if fitness_values[best_idx] < fitness(elite)
+            pop[best_idx, :] = elite
+            fitness_values[best_idx] = fitness(elite)
+            elite = pop[best_idx, :]
+        end
+    end
+    end
 
-if elitism
- return elite
-else
- best_idx = argmin(fitness_values)
- return pop[best_idx, :]
-end
+    if elitism
+    return elite
+    else
+    best_idx = argmin(fitness_values)
+    return pop[best_idx, :]
+    end
 end
