@@ -1,5 +1,7 @@
 module IHSetUtils
 
+using Conda
+Conda.pip("install", "SciPy")
 using Polynomials
 using SciPy
 export abs_angle_cartesian, abs_pos, cartesianDir2nauticalDir, interp_lon, nauticalDir2cartesianDir, nauticalDir2cartesianDirP, pol2cart, rel_angle_cartesian, rel_angle_cartesianP, shore_angle

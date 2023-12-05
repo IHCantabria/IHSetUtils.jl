@@ -4,6 +4,7 @@ authors = ["defreitasL <lucas12.fp@hotmail.com> and contributors"]
 version = "1.0.0-DEV"
 
 [deps]
+Conda = "8f4d0f93-b110-5947-807f-2305c1781a2d"
 Polynomials = "f27b6e38-b328-58d1-80ce-0feddd5e7a45"
 SciPy = "ebc72ef8-9537-4fb0-b64e-ac76025fed2d"
 
