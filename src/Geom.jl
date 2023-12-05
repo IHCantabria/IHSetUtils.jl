@@ -1,5 +1,3 @@
-# module GM
-
 function abs_angle_cartesian(relD, batiD)
     ###########################################################################    
     # Absolute angle in cartesian notation, angle between [180,-180], 
@@ -219,5 +217,3 @@ function shore_angle(XN,YN,wave_angle)
     return shoreAng
     
 end
-
-# end #molude

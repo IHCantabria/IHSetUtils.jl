@@ -6,7 +6,6 @@ function ADEAN(D50)
     
     return A
 end
-export ADEAN
 
 function ALST(Hb,Tb,Dirb,hb,ANGbati,K)
 
