@@ -163,19 +163,17 @@ function wMOORE(D50)
     ###########################################################################    
     # Fall velocity; D50 in meters. Moore 1982
     ###########################################################################    
-    
-    ws = zeros(size(D50))
-    for i in eachindex(D50)
-        if D50[i].<=0.1*1e-3
-            ws[i] = 1.1*1e6*D50[i].^2
-        elseif D50[i].>0.1*1e-3 && D50[i].<1.0*1e-3
-            ws[i] = 273.0.*D50[i].^1.1
-        elseif D50[i].>1*1e-3
-            ws[i] = 4.36.*D50[i].^0.5
-        end
+
+    if D50[i].<=0.1*1e-3
+        ws[i] = 1.1*1e6*D50[i].^2
+    elseif D50[i].>0.1*1e-3 && D50[i].<1.0*1e-3
+        ws[i] = 273.0.*D50[i].^1.1
+    elseif D50[i].>1*1e-3
+        ws[i] = 4.36.*D50[i].^0.5
     end
     
     return ws
+    
 end
 
 function deanSlope(depth, D50)
