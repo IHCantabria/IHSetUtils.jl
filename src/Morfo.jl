@@ -31,7 +31,7 @@ function ALST(Hb,Tb,Dirb,hb,ANGbati,K)
     ###########################################################################
 
     
-    DIRrel = GM.rel_angle_cartesian(GM.nauticalDir2cartesianDir(Dirb),ANGbati)
+    DIRrel = rel_angle_cartesian(nauticalDir2cartesianDir(Dirb),ANGbati)
     PerpRange = abs.(DIRrel) .< 90
     PerpRange = vec(PerpRange)
     q = zeros(size(Hb))

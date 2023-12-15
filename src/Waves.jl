@@ -22,7 +22,7 @@ function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
         Bcoef = 0.45
     end
 
-    DIRrel = GM.rel_angle_cartesian(GM.nauticalDir2cartesianDir(DIR1),ANGbati)
+    DIRrel = rel_angle_cartesian(nauticalDir2cartesianDir(DIR1),ANGbati)
 
     h2l0 = H1./Bcoef; # # initial condition for breaking depth
         
@@ -118,7 +118,7 @@ function LinearShoal(H1, T1, DIR1, h1, h2, ANGbati)
     ###########################################################################
 
     
-    relDir1 = GM.rel_angle_cartesian(GM.nauticalDir2cartesianDir(DIR1),ANGbati)
+    relDir1 = rel_angle_cartesian(nauticalDir2cartesianDir(DIR1),ANGbati)
 
     # L1, _ =RelDisp(h1,T1)
     # L2, _ =RelDisp(h2,T1)
@@ -130,7 +130,7 @@ function LinearShoal(H1, T1, DIR1, h1, h2, ANGbati)
     KS = sqrt.(CG1./CG2)
     KR = sqrt.(cos.(relDir1.*pi./180.)./cos.(relDir2.*pi./180.))
     H2 = H1.*KS.*KR
-    DIR2 = GM.cartesianDir2nauticalDir(GM.abs_angle_cartesian(relDir2,ANGbati))
+    DIR2 = cartesianDir2nauticalDir(abs_angle_cartesian(relDir2,ANGbati))
     
     return H2, DIR2
 end
