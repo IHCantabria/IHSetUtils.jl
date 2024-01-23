@@ -22,7 +22,7 @@ function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
         Bcoef = 0.45
     end
 
-    DIRrel = rel_angle_cartesian(nauticalDir2cartesianDir(DIR1),ANGbati)
+    DIRrel = GM.rel_angle_cartesian(nauticalDir2cartesianDir(DIR1),ANGbati)
 
     h2l0 = H1./Bcoef; # # initial condition for breaking depth
         
@@ -46,8 +46,24 @@ function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
     if sum(propProf)>0
         myFun(x) = LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
         
-        h2l = optimize.newton_krylov(myFun,h2l0[propProf]; method="minres")
+        # lb = zeros(size(h2l0[propProf])) .+ 0.1
+        # ub = zeros(size(h2l0[propProf])) .+ 30
 
+        # try
+        #     nlboxsolve(myFun,h2l0[propProf], lb, ub, xtol=1e-1,ftol=1e-1).zero
+        # catch
+        #     println("\n\n", H1, "\n\n")
+        #     println(T1, "\n\n")
+        #     println(DIR1, "\n\n")
+        #     println(h1, "\n\n")
+        #     println(ANGbati, "\n\n")
+        #     println(DIRrel, "\n\n")
+        # end
+        # h2l = nlboxsolve(myFun,h2l0[propProf], lb, ub, xtol=1e-1,ftol=1e-1).zero
+        # h2l = nlsolve(myFun,h2l0[propProf]).zero
+
+        # println("h2l = ",h2l)
+        h2l = optimize.newton_krylov(myFun,h2l0[propProf]; method="minres")
         H2l, DIR2l = LinearShoalBreak_ResidualVOL(h2l, H1[propProf],T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef);                
         H2[propProf] = H2l
         DIR2[propProf] = DIR2l
@@ -87,15 +103,15 @@ function hunt(T,d)
    
     
     g=9.81; #[m/s^2]
-    
+
     G= (2. .* pi ./T ) .^2 .*(d./g)
     
     # p=Polynomial([.067,.0864,.4622,.6522,1])
-    p=Polynomial([1.0,.6522,.4622,.0864,.067])
+    p=Polynomial([1.0,.6522,.4622,.0864,.0675])
     
     F = G .+ 1.0 ./p.(G)
 
-    L=T.*(g.*d./F).^.5
+    L= T.*(g.*d./F).^.5
     
     return L
 end
