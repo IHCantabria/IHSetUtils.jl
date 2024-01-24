@@ -42,7 +42,13 @@ function ALST(Hb,Tb,Dirb,hb,ANGbati,K)
     #     cos(deg2rad[DIRrel[PerpRange]]).*sin(deg2rad[DIRrel[PerpRange]])
     rho = 1025 # #saltwater mass density SPM
     rhos = 2650 # # sand mass density SPM
-    
+    try
+        gammab = Hb[PerpRange]./hb[PerpRange]
+    catch
+        println("hb: ", hb)
+        println("Hb: ", Hb)
+        println("PerpRange: ", PerpRange)
+    end
     p = 0.4 # # porosity SPM
     gammab = Hb[PerpRange]./hb[PerpRange]
     gammab[isnan.(gammab)].=Inf
