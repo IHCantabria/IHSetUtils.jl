@@ -46,7 +46,15 @@ function ALST(Hb,Tb,Dirb,hb,ANGbati,K)
     p = 0.4 # # porosity SPM
     gammab = Hb[PerpRange]./hb[PerpRange]
     gammab[isnan.(gammab)].=Inf
-    cnts = rho.*sqrt.(9.81)./(16. .*sqrt.(gammab).*(rhos.-rho).*(1.0.-p));      
+    cnts = rho.*sqrt.(9.81)./(16. .*sqrt.(gammab).*(rhos.-rho).*(1.0.-p))
+    try
+        q0[PerpRange] .= K[PerpRange].*cnts.*(Hb[PerpRange].^(5. /2.))
+    catch
+        println("K: ", K)
+        println("cnts: ", cnts)
+        println("Hb: ", Hb)
+        println("PerpRange: ", PerpRange)
+    end     
     q0[PerpRange] .= K[PerpRange].*cnts.*(Hb[PerpRange].^(5. /2.))
     q[PerpRange] .= q0[PerpRange].*sin.(2. .*deg2rad.(DIRrel[PerpRange]))
     #     elif method .== "spm":
