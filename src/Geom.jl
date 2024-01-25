@@ -34,8 +34,8 @@ function abs_pos(X0,Y0,phi,dn)
     # YN : y coordinate
     #####################
 
-    XN = X0 + dn.*cos.(phi)
-    YN = Y0 + dn.*sin.(phi)
+    XN = X0 .+ dn.*cos.(phi)
+    YN = Y0 .+ dn.*sin.(phi)
        
     return XN, YN
 end
