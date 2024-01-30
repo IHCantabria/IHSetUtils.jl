@@ -46,7 +46,10 @@ function BreakingPropagation(H1, T1, DIR1, h1, ANGbati, breakType)
             return LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
         end
 
-        result = optimize(my_fun, h2l0[propProf], Newton(), Optim.Options(f_tol = 1e-6, iterations = 1000))
+        lb = zeros(size(h2l0[propProf])) .+ 0.5
+        ub = zeros(size(h2l0[propProf])) .+ 20
+
+        result = optimize(my_fun, h2l0[propProf], lb, ub, Newton())
 
         h2l = Optim.minimizer(result)
         H2l, DIR2l = LinearShoalBreak_ResidualVOL(h2l, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
