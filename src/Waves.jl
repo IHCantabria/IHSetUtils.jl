@@ -22,7 +22,7 @@ function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
         Bcoef = 0.45
     end
 
-    DIRrel = GM.rel_angle_cartesian(nauticalDir2cartesianDir(DIR1),ANGbati)
+    DIRrel = rel_angle_cartesian(nauticalDir2cartesianDir(DIR1),ANGbati)
 
     h2l0 = H1./Bcoef; # # initial condition for breaking depth
         
