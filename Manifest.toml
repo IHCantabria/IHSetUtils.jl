@@ -2,7 +2,7 @@
 
 julia_version = "1.9.4"
 manifest_format = "2.0"
-project_hash = "5a7926b506544f1ea779727a2ccc9a2012650cc2"
+project_hash = "7593eec713a448be36aad060016352f3a2e95dbc"
 
 [[deps.Adapt]]
 deps = ["LinearAlgebra", "Requires"]
@@ -323,22 +323,6 @@ deps = ["DiffResults", "Distributed", "FiniteDiff", "ForwardDiff"]
 git-tree-sha1 = "a0b464d183da839699f4c79e7606d9d186ec172c"
 uuid = "d41bc354-129a-5804-8e4c-c37616107c6c"
 version = "7.8.3"
-
-[[deps.NLopt]]
-deps = ["NLopt_jll"]
-git-tree-sha1 = "d1d09c342c3dd9b3bae985b088bd928632e4d79e"
-uuid = "76087f3c-5699-56af-9a33-bf431cd00edd"
-version = "1.0.1"
-weakdeps = ["MathOptInterface"]
-
-    [deps.NLopt.extensions]
-    NLoptMathOptInterfaceExt = ["MathOptInterface"]
-
-[[deps.NLopt_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "9b1f15a08f9d00cdb2761dcfa6f453f5d0d6f973"
-uuid = "079eb43e-fd8e-5478-9966-2cf3e3edb778"
-version = "2.7.1+0"
 
 [[deps.NaNMath]]
 deps = ["OpenLibm_jll"]
