@@ -43,15 +43,13 @@ function BreakingPropagation(H1, T1, DIR1, h1, ANGbati, breakType)
 
     if sum(propProf) > 0
         function my_fun(x)
-            println("Dentro da my_fun")
             return LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
         end
 
-        try
-            result = optimize(my_fun, h2l0[propProf], Newton())
-        catch e
-            println("Erro na otimização: ", e)
-        end
+        # lb = zeros(size(h2l0[propProf])) .+ 0.5
+        # ub = zeros(size(h2l0[propProf])) .+ 20
+
+        result = optimize(my_fun, h2l0[propProf], ParticleSwarm())
 
         # result = optimize(my_fun, h2l0[propProf], lb, ub, Newton())
 
