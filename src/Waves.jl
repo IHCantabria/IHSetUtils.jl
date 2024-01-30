@@ -43,7 +43,7 @@ function BreakingPropagation(H1, T1, DIR1, h1, ANGbati, breakType)
 
     if sum(propProf) > 0
 
-        my_fun(x) = LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
+        myFun(x) = LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
 
         h2l = optimize.newton_krylov(myFun,h2l0[propProf]; method="minres")
 
