@@ -49,7 +49,7 @@ function BreakingPropagation(H1, T1, DIR1, h1, ANGbati, breakType)
         # lb = zeros(size(h2l0[propProf])) .+ 0.5
         # ub = zeros(size(h2l0[propProf])) .+ 20
 
-        result = optimize(my_fun, h2l0[propProf], ParticleSwarm())
+        result = optimize(my_fun, h2l0[propProf], Newton())
 
         # result = optimize(my_fun, h2l0[propProf], lb, ub, Newton())
 
