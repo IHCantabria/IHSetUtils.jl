@@ -1,7 +1,7 @@
-function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
-    ###########################################################################    
+function BreakingPropagation(H1, T1, DIR1, h1, ANGbati, breakType)
+    ###########################################################################
     # Propagation of waves using linear theory assuming rectilinear & parallel bathymetry
-    #    
+    #
     # INPUT:
     # H1:        wave height.
     # T1:        wave period.
@@ -9,67 +9,52 @@ function BreakingPropagation(H1,T1,DIR1,h1,ANGbati,breakType)
     # h1:        depth of wave conditions.
     # ANGbati:   bathymetry angle; the normal of the shoreline. Cartesian notation
     # breakType: type of breaking condition. Spectral | monochromatic.
-    #    
+    #
     # OUTPUT:
     # H2:        wave height during breaking. Wave period is assumed invariant due to linear theory
     # DIR2:      wave direction during breaking. Nautical convention.
     # h2:        depth of breaking
-    ###########################################################################    
+    ###########################################################################
 
     if breakType == "mono"
-        Bcoef=0.78
+        Bcoef = 0.78
     elseif breakType == "spectral"
         Bcoef = 0.45
     end
 
-    DIRrel = rel_angle_cartesian(nauticalDir2cartesianDir(DIR1),ANGbati)
+    DIRrel = rel_angle_cartesian(nauticalDir2cartesianDir(DIR1), ANGbati)
 
-    h2l0 = H1./Bcoef; # # initial condition for breaking depth
-        
-    
-    H2 = zeros(length(H1),1); 
-    DIR2 = zeros(length(DIR1),1); 
-    h2 = zeros(length(H1),1)
-    
-    
-    H2[h2l0.>=h1] = H1[h2l0.>=h1]
-    DIR2[h2l0.>=h1] = DIR1[h2l0.>=h1]
-    h2[h2l0.>=h1] = h2l0[h2l0.>=h1]  # # check that the initial depth is deeper than the breaking value
-    
-    H2[H1.<=0.1] = H1[H1.<=0.1]
-    DIR2[H1.<=0.1] = DIR1[H1.<=0.1]
-    h2[H1.<=0.1] = h2l0[H1.<=0.1]  
-    
-    propProf = (abs.(DIRrel).<=90) .&& (H1.>0.1) .&& (h2l0.<h1)
+    h2l0 = H1 ./ Bcoef  # initial condition for breaking depth
+
+    H2 = zeros(length(H1), 1)
+    DIR2 = zeros(length(DIR1), 1)
+    h2 = zeros(length(H1), 1)
+
+    H2[h2l0 .>= h1] .= H1[h2l0 .>= h1]
+    DIR2[h2l0 .>= h1] .= DIR1[h2l0 .>= h1]
+    h2[h2l0 .>= h1] .= h2l0[h2l0 .>= h1]  # check that the initial depth is deeper than the breaking value
+
+    H2[H1 .<= 0.1] .= H1[H1 .<= 0.1]
+    DIR2[H1 .<= 0.1] .= DIR1[H1 .<= 0.1]
+    h2[H1 .<= 0.1] .= h2l0[H1 .<= 0.1]
+
+    propProf = (abs.(DIRrel) .<= 90) .& (H1 .> 0.1) .& (h2l0 .< h1)
     propProf = vec(propProf)
-    
-    if sum(propProf)>0
-        myFun(x) = LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
-        
-        # lb = zeros(size(h2l0[propProf])) .+ 0.1
-        # ub = zeros(size(h2l0[propProf])) .+ 30
 
-        # try
-        #     nlboxsolve(myFun,h2l0[propProf], lb, ub, xtol=1e-1,ftol=1e-1).zero
-        # catch
-        #     println("\n\n", H1, "\n\n")
-        #     println(T1, "\n\n")
-        #     println(DIR1, "\n\n")
-        #     println(h1, "\n\n")
-        #     println(ANGbati, "\n\n")
-        #     println(DIRrel, "\n\n")
-        # end
-        # h2l = nlboxsolve(myFun,h2l0[propProf], lb, ub, xtol=1e-1,ftol=1e-1).zero
-        # h2l = nlsolve(myFun,h2l0[propProf]).zero
+    if sum(propProf) > 0
+        function my_fun(x)
+            return LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
+        end
 
-        # println("h2l = ",h2l)
-        h2l = optimize.newton_krylov(myFun,h2l0[propProf]; method="minres")
-        H2l, DIR2l = LinearShoalBreak_ResidualVOL(h2l, H1[propProf],T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef);                
-        H2[propProf] = H2l
-        DIR2[propProf] = DIR2l
-        h2[propProf] = h2l
+        result = optimize(my_fun, h2l0[propProf], Newton())
+
+        h2l = Optim.minimizer(result)
+        H2l, DIR2l = LinearShoalBreak_ResidualVOL(h2l, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
+        H2[propProf] .= H2l
+        DIR2[propProf] .= DIR2l
+        h2[propProf] .= h2l
     end
-        
+
     return H2, DIR2, h2
 end
 
