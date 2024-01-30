@@ -42,15 +42,14 @@ function BreakingPropagation(H1, T1, DIR1, h1, ANGbati, breakType)
     propProf = vec(propProf)
 
     if sum(propProf) > 0
-        function my_fun(x)
-            return LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
-        end
 
-        # h2l = nlsolve(myFun,h2l0[propProf]).zero
+        my_fun(x) = LinearShoalBreak_Residual(x, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
 
-        result = optimize(my_fun, h2l0[propProf], Newton())
+        h2l = optimize.newton_krylov(myFun,h2l0[propProf]; method="minres")
 
-        h2l = Optim.minimizer(result)
+        # result = optimize(my_fun, h2l0[propProf], Newton())
+
+        # h2l = Optim.minimizer(result)
         H2l, DIR2l = LinearShoalBreak_ResidualVOL(h2l, H1[propProf], T1[propProf], DIR1[propProf], h1[propProf], ANGbati[propProf], Bcoef)
         H2[propProf] .= H2l
         DIR2[propProf] .= DIR2l
